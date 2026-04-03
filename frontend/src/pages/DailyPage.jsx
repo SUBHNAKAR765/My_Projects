@@ -2029,6 +2029,12 @@ export default function DailyPage({ onSaveAnswer, onNavigate }) {
       if (window.location.pathname !== '/daily/cooking') window.history.pushState(null, '', '/daily/cooking')
       return
     }
+    if (cat.id === 'webdev') {
+      setMode('webdev')
+      setWebdevPath({ topicKey: null, isTheory: false })
+      if (window.location.pathname !== '/daily/webdev') window.history.pushState(null, '', '/daily/webdev')
+      return
+    }
     startQuiz(cat)
   }
 

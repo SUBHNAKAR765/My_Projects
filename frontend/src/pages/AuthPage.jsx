@@ -1,10 +1,32 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { ArrowLeft } from 'lucide-react'
 import { api } from '../utils/api'
 import { showToast } from '../components/Toast'
 
 export default function AuthPage({ onAuth }) {
-  const [view, setView]     = useState('login')
-  const [loading, setLoading] = useState(false)
+  const [view, setView] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return ['login', 'signup', 'forgot'].includes(params.get('view')) ? params.get('view') : 'login';
+  });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('view') || 'login';
+      setView(['login', 'signup', 'forgot'].includes(v) ? v : 'login');
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const navigateView = useCallback((v) => {
+    const currentView = new URLSearchParams(window.location.search).get('view') || 'login';
+    if (v === currentView) return;
+    const url = v === 'login' ? window.location.pathname : `${window.location.pathname}?view=${v}`;
+    window.history.pushState({ ...window.history.state }, '', url);
+    setView(v);
+  }, []);
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -62,16 +84,16 @@ export default function AuthPage({ onAuth }) {
         {view === 'login' && (
           <div>
             <h2 className="text-xl font-bold text-accent-light mb-6 text-center">Welcome Back</h2>
-            <form onSubmit={handleLogin} className="space-y-4 flex flex-col">
+            <form onSubmit={handleLogin} className="space-y-4 flex flex-col" autoComplete="off">
               <div className="space-y-1.5 flex flex-col text-left">
                 <label className="text-[11px] uppercase tracking-widest text-accent-neutral font-bold pl-1">Email / Reg. Number</label>
-                <input name="email" type="text" required
+                <input name="email" type="text" required autoComplete="new-password"
                   className="w-full bg-dark-bg/50 border border-accent-border rounded-xl px-4 py-3.5 text-accent-light placeholder-accent-neutral/40 glow-focus transition-all text-sm outline-none" 
                   placeholder="University Email or Reg. Number" />
               </div>
               <div className="space-y-1.5 flex flex-col text-left">
                 <label className="text-[11px] uppercase tracking-widest text-accent-neutral font-bold pl-1">Password</label>
-                <input name="password" type="password" required minLength={4} autoComplete="current-password"
+                <input name="password" type="password" required minLength={4} autoComplete="new-password"
                   className="w-full bg-dark-bg/50 border border-accent-border rounded-xl px-4 py-3.5 text-accent-light placeholder-accent-neutral/40 glow-focus transition-all text-sm outline-none" 
                   placeholder="••••••••" />
               </div>
@@ -80,11 +102,17 @@ export default function AuthPage({ onAuth }) {
                 {loading ? 'Signing in...' : 'Sign in'}
               </button>
             </form>
-            <p className="text-center text-sm text-accent-neutral mt-8">
-              New here?{' '}
-              <button type="button" onClick={() => setView('signup')}
-                className="text-accent-primary font-semibold hover:text-accent-secondary transition-colors glow-text">Create account</button>
-            </p>
+            <div className="flex flex-col items-center gap-4 mt-8">
+              <button type="button" onClick={() => navigateView('forgot')}
+                className="text-sm text-accent-neutral font-semibold hover:text-accent-secondary transition-colors glow-text">
+                Forgot password?
+              </button>
+              <p className="text-center text-sm text-accent-neutral">
+                New here?{' '}
+                <button type="button" onClick={() => navigateView('signup')}
+                  className="text-accent-primary font-semibold hover:text-accent-secondary transition-colors glow-text">Create account</button>
+              </p>
+            </div>
           </div>
         )}
 
@@ -118,9 +146,38 @@ export default function AuthPage({ onAuth }) {
             </form>
             <p className="text-center text-sm text-accent-neutral mt-8">
               Already have an account?{' '}
-              <button type="button" onClick={() => setView('login')}
+              <button type="button" onClick={() => navigateView('login')}
                 className="text-accent-primary font-semibold hover:text-accent-secondary transition-colors glow-text">Log in</button>
             </p>
+          </div>
+        )}
+
+        {/* Forgot Password */}
+        {view === 'forgot' && (
+          <div>
+            <h2 className="text-xl font-bold text-accent-light mb-6 text-center">Reset Password</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              showToast('Password reset link sent to your email', 'success');
+              navigateView('login');
+            }} className="space-y-4 flex flex-col">
+              <div className="space-y-1.5 flex flex-col text-left">
+                <label className="text-[11px] uppercase tracking-widest text-accent-neutral font-bold pl-1">Email</label>
+                <input name="email" type="email" required
+                  className="w-full bg-dark-bg/50 border border-accent-border rounded-xl px-4 py-3.5 text-accent-light placeholder-accent-neutral/40 glow-focus transition-all text-sm outline-none" 
+                  placeholder="University Email or Reg. Number" />
+              </div>
+              <button type="submit"
+                className="w-full py-4 mt-4 bg-accent-primary hover:bg-accent-secondary text-dark-bg rounded-xl font-bold text-sm transition-all shadow-[0_0_20px_rgba(255,107,53,0.3)] hover:shadow-[0_0_30px_rgba(255,107,53,0.5)] transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none">
+                Send Reset Link
+              </button>
+            </form>
+            <div className="flex justify-center mt-6">
+              <button type="button" onClick={() => navigateView('login')}
+                className="flex items-center gap-2 text-sm font-semibold text-accent-neutral hover:text-white transition-colors">
+                <ArrowLeft size={16} /> Back to Sign In
+              </button>
+            </div>
           </div>
         )}
 

@@ -39,7 +39,7 @@ public class DataSeeder implements CommandLineRunner {
 
         String dataFile = "CGUStudentsData.txt";
         if (!Files.exists(Paths.get(dataFile))) {
-            System.err.println("Data file not found: " + dataFile);
+            System.out.println("[DataSeeder] CGUStudentsData.txt not found — skipping student import.");
             return;
         }
 

@@ -16,7 +16,14 @@ export default function DashboardPage({ records = [], user, onNavigate }) {
   const totalXP = stats?.totalXp ?? records.reduce((s, r) => s + (r.xpEarned || 0), 0);
   const accuracy = stats?.accuracy ?? (records.length > 0 ? Math.round(records.filter(r => r.isCorrect).length * 100 / records.length) : 0);
   const streak = stats?.streak ?? 0;
-  const totalHours = stats ? Math.round(stats.totalTimeSpentSeconds / 3600) : 0;
+  const formatTime = (seconds) => {
+    if (!seconds) return '0h';
+    const m = Math.floor(seconds / 60);
+    const h = Math.floor(m / 60);
+    if (h > 0) return m % 60 > 0 ? `${h}h ${m % 60}m` : `${h}h`;
+    return `${m}m`;
+  };
+  const activeTimeDisplay = stats ? formatTime(stats.totalTimeSpentSeconds) : '0h';
 
   const xpChart = stats?.xpChart ?? [];
   const skillChart = stats?.skillChart?.slice(0, 5) ?? [];
@@ -82,7 +89,7 @@ export default function DashboardPage({ records = [], user, onNavigate }) {
             <span className="text-sm text-accent-neutral font-bold uppercase tracking-wider">Active Hours</span>
             <div className="p-2.5 bg-dark-bg rounded-xl text-accent-primary border border-accent-primary/20 shadow-[0_0_15px_rgba(255,107,53,0.2)]"><Clock size={20} /></div>
           </div>
-          <div className="text-2xl font-bold glow-text">{totalHours}h</div>
+          <div className="text-2xl font-bold glow-text">{activeTimeDisplay}</div>
           <p className="text-xs text-accent-success mt-2 flex items-center gap-1 font-semibold">
             <Activity size={12}/> Total time spent
           </p>

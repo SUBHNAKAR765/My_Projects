@@ -1,9 +1,12 @@
 package com.skillbite.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AnswerResponse {
     private Long id;
     private String skillCategory;
     private int xpEarned;
+    @JsonProperty("isCorrect")
     private boolean isCorrect;
     private String challengeName;
     private int timeSpent;

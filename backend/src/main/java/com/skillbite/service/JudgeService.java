@@ -174,7 +174,7 @@ public class JudgeService {
 
     public List<SubmissionResponse> getHistory(String userEmail) {
         User user = userRepo.findByEmail(userEmail).orElseThrow();
-        return submissionRepo.findByUserIdOrderBySubmittedAtDesc(user.getId()).stream()
+        return submissionRepo.findByUser_IdOrderBySubmittedAtDesc(user.getId()).stream()
                 .map(s -> {
                     SubmissionResponse r = new SubmissionResponse();
                     r.setId(s.getId());

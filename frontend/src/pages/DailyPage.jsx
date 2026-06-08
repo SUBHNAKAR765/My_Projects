@@ -1912,82 +1912,82 @@ export default function DailyPage({ onSaveAnswer, onNavigate }) {
     if (cat.id === 'aptitude') {
       setMode('aptitude')
       setAptitudePath({ topicKey: null, questionSlug: null })
-      if (window.location.pathname !== '/daily/aptitude') window.history.pushState(null, '', '/daily/aptitude')
+      if (window.location.pathname !== '/daily/aptitude') window.history.pushState({ page: 'daily' }, '', '/daily/aptitude')
       return
     }
     if (cat.id === 'reasoning') {
       setMode('reasoning')
       setReasoningPath({ topicKey: null, questionSlug: null })
-      if (window.location.pathname !== '/daily/reasoning') window.history.pushState(null, '', '/daily/reasoning')
+      if (window.location.pathname !== '/daily/reasoning') window.history.pushState({ page: 'daily' }, '', '/daily/reasoning')
       return
     }
     if (cat.id === 'aiml') {
       setMode('aiml')
       setAimlPath({ topicKey: null, isTheory: false, isQuiz: false })
-      if (window.location.pathname !== '/daily/aiml') window.history.pushState(null, '', '/daily/aiml')
+      if (window.location.pathname !== '/daily/aiml') window.history.pushState({ page: 'daily' }, '', '/daily/aiml')
       return
     }
     if (cat.id === 'fun') {
       setMode('fun')
       setFunPath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/fun') window.history.pushState(null, '', '/daily/fun')
+      if (window.location.pathname !== '/daily/fun') window.history.pushState({ page: 'daily' }, '', '/daily/fun')
       return
     }
     if (cat.id === 'english') {
       setMode('english')
       setEnglishPath({ topicKey: null, questionSlug: null })
-      if (window.location.pathname !== '/daily/english') window.history.pushState(null, '', '/daily/english')
+      if (window.location.pathname !== '/daily/english') window.history.pushState({ page: 'daily' }, '', '/daily/english')
       return
     }
     if (cat.id === 'math' || cat.id === 'maths') {
       if (onNavigate) { onNavigate('maths'); return }
       setMode('math')
       setMathPath({ topicKey: null, questionSlug: null })
-      if (window.location.pathname !== '/daily/math') window.history.pushState(null, '', '/daily/math')
+      if (window.location.pathname !== '/daily/math') window.history.pushState({ page: 'daily' }, '', '/daily/math')
       return
     }
     if (cat.id === 'fitness') {
       if (onNavigate) { onNavigate('fitness'); return }
       setMode('fitness')
       setFitnessPath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/fitness') window.history.pushState(null, '', '/daily/fitness')
+      if (window.location.pathname !== '/daily/fitness') window.history.pushState({ page: 'daily' }, '', '/daily/fitness')
       return
     }
     if (cat.id === 'language') {
       if (onNavigate) { onNavigate('language'); return }
       setMode('language')
       setLanguagePath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/language') window.history.pushState(null, '', '/daily/language')
+      if (window.location.pathname !== '/daily/language') window.history.pushState({ page: 'daily' }, '', '/daily/language')
       return
     }
     if (cat.id === 'cs') {
       setMode('cs')
       setCsPath({ topicKey: null, subtopicKey: null, questionSlug: null })
-      if (window.location.pathname !== '/daily/cs') window.history.pushState(null, '', '/daily/cs')
+      if (window.location.pathname !== '/daily/cs') window.history.pushState({ page: 'daily' }, '', '/daily/cs')
       return
     }
     if (cat.id === 'creativity') {
       setMode('creativity')
       setCreativityPath({ topicKey: null, subtopicKey: null, questionSlug: null, isTheory: false })
-      if (window.location.pathname !== '/daily/creativity') window.history.pushState(null, '', '/daily/creativity')
+      if (window.location.pathname !== '/daily/creativity') window.history.pushState({ page: 'daily' }, '', '/daily/creativity')
       return
     }
     if (cat.id === 'language') {
       setMode('language')
       setLanguagePath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/language') window.history.pushState(null, '', '/daily/language')
+      if (window.location.pathname !== '/daily/language') window.history.pushState({ page: 'daily' }, '', '/daily/language')
       return
     }
     if (cat.id === 'gk') {
       setMode('gk')
       setGkPath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/gk') window.history.pushState(null, '', '/daily/gk')
+      if (window.location.pathname !== '/daily/gk') window.history.pushState({ page: 'daily' }, '', '/daily/gk')
       return
     }
     if (cat.id === 'placement') {
       setMode('productivity-prep')
       setProductivityPrepPath({ topicKey: null, subtopicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/productivity-prep') window.history.pushState(null, '', '/daily/productivity-prep')
+      if (window.location.pathname !== '/daily/productivity-prep') window.history.pushState({ page: 'daily' }, '', '/daily/productivity-prep')
       return
     }
     if (cat.id === 'dsa') {
@@ -2005,34 +2005,34 @@ export default function DailyPage({ onSaveAnswer, onNavigate }) {
       if (onNavigate) { onNavigate('fitness'); return }
       setMode('fitness')
       setFitnessPath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/fitness') window.history.pushState(null, '', '/daily/fitness')
+      if (window.location.pathname !== '/daily/fitness') window.history.pushState({ page: 'daily' }, '', '/daily/fitness')
       return
     }
     if (cat.id === 'math') {
       if (onNavigate) { onNavigate('maths'); return }
       setMode('math')
       setMathPath({ topicKey: null, questionSlug: null })
-      if (window.location.pathname !== '/daily/math') window.history.pushState(null, '', '/daily/math')
+      if (window.location.pathname !== '/daily/math') window.history.pushState({ page: 'daily' }, '', '/daily/math')
       return
     }
     if (cat.id === 'language') {
       if (onNavigate) { onNavigate('language'); return }
       setMode('language')
       setLanguagePath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/language') window.history.pushState(null, '', '/daily/language')
+      if (window.location.pathname !== '/daily/language') window.history.pushState({ page: 'daily' }, '', '/daily/language')
       return
     }
     if (cat.id === 'cooking') {
       if (onNavigate) { onNavigate('cooking_list'); return }
       setMode('cooking')
       setCookingPath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/cooking') window.history.pushState(null, '', '/daily/cooking')
+      if (window.location.pathname !== '/daily/cooking') window.history.pushState({ page: 'daily' }, '', '/daily/cooking')
       return
     }
     if (cat.id === 'webdev') {
       setMode('webdev')
       setWebdevPath({ topicKey: null, isTheory: false })
-      if (window.location.pathname !== '/daily/webdev') window.history.pushState(null, '', '/daily/webdev')
+      if (window.location.pathname !== '/daily/webdev') window.history.pushState({ page: 'daily' }, '', '/daily/webdev')
       return
     }
     startQuiz(cat)
@@ -2112,73 +2112,73 @@ export default function DailyPage({ onSaveAnswer, onNavigate }) {
   function cancelChallenge() {
     clearInterval(timerRef.current)
     if (window.location.pathname.startsWith('/coding') || window.location.pathname.startsWith('/daily/dsa') || window.location.pathname.startsWith('/daily/aptitude') || window.location.pathname.startsWith('/daily/reasoning') || window.location.pathname.startsWith('/daily/math') || window.location.pathname.startsWith('/daily/english') || window.location.pathname.startsWith('/daily/creativity') || window.location.pathname.startsWith('/daily/language') || window.location.pathname.startsWith('/daily/fitness')) {
-      if (window.location.pathname !== '/daily') window.history.pushState(null, '', '/daily')
+      if (window.location.pathname !== '/daily') window.history.pushState({ page: 'daily' }, '', '/daily')
     }
     setMode('categories')
   }
 
   function pushCodingPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushAptitudePath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushReasoningPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushDsaPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushCsPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushMathPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushEnglishPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushCreativityPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushProductivityPrepPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushLanguagePath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushFitnessPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushGkPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushCookingPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushFunPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushAimlPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   function pushWebdevPath(path) {
-    if (window.location.pathname !== path) window.history.pushState(null, '', path)
+    if (window.location.pathname !== path) window.history.pushState({ page: 'daily' }, '', path)
   }
 
   const min = Math.floor(timeLeft / 60)

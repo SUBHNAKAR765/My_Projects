@@ -11,13 +11,7 @@ export default function MathsSubtopicsPage({ onNavigate }) {
   return (
     <div className="bg-[#111] min-h-screen text-white p-6 space-y-8 animate-fade-in font-sans">
       <button 
-        onClick={() => {
-          if (window.history.length > 2) {
-            window.history.back();
-          } else {
-            onNavigate('maths');
-          }
-        }}
+        onClick={() => onNavigate('maths')}
         className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors font-bold text-sm"
       >
         <ChevronLeft size={18} /> Back to Subjects

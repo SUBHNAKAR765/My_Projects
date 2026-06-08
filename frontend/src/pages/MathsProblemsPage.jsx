@@ -16,13 +16,7 @@ export default function MathsProblemsPage({ onNavigate }) {
     <div className="bg-[#111] min-h-screen text-white p-6 space-y-8 animate-fade-in font-sans">
       <div className="flex items-center gap-3">
         <button 
-          onClick={() => {
-            if (window.history.length > 2) {
-              window.history.back();
-            } else {
-              onNavigate('maths_subtopics');
-            }
-          }}
+          onClick={() => onNavigate('maths_subtopics')}
           className="flex items-center gap-2 text-gray-500 hover:text-white transition-colors font-bold text-sm"
         >
           <ChevronLeft size={18} /> Back to Sub-topics

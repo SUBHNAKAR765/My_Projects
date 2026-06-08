@@ -57,13 +57,7 @@ export default function MathsQuizPage({ onNavigate }) {
             <span className="font-bold">{formatTime(timeLeft)}</span>
           </div>
           <button 
-            onClick={() => {
-              if (window.history.length > 2) {
-                window.history.back();
-              } else {
-                onNavigate('maths_problems');
-              }
-            }} 
+            onClick={() => onNavigate('maths_problems')} 
             className="p-2 hover:bg-white/5 rounded-full transition-colors text-gray-500 hover:text-white"
           >
             <X size={20} />

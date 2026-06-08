@@ -252,6 +252,19 @@ export default function ProblemPage({ problemId, localQuestion, topicTitle, lang
   const difficulty = problem?.difficulty ?? localQuestion?.difficulty ?? 'Easy'
   const diffPill = difficulty === 'Hard' ? 'border-red-800 text-red-400' : difficulty === 'Medium' ? 'border-yellow-800 text-yellow-400' : 'border-green-800 text-green-400'
 
+  const dsaStats = useMemo(() => {
+    try {
+      const status = JSON.parse(localStorage.getItem('skillbite_dsa_status') || '{}');
+      const solvedKeys = Object.keys(status).filter(k => status[k] === 'solved');
+      const easySolved = solvedKeys.filter(k => /_e\d+$/.test(k)).length;
+      const medSolved = solvedKeys.filter(k => /_m\d+$/.test(k)).length;
+      const hardSolved = solvedKeys.filter(k => /_h\d+$/.test(k)).length;
+      return { totalSolved: solvedKeys.length, easySolved, medSolved, hardSolved };
+    } catch {
+      return { totalSolved: 0, easySolved: 0, medSolved: 0, hardSolved: 0 };
+    }
+  }, [prefs]);
+
   return (
     <div className="flex flex-col h-screen bg-[#0d0d0d] text-gray-100 overflow-hidden">
 
@@ -502,24 +515,24 @@ export default function ProblemPage({ problemId, localQuestion, topicTitle, lang
           
           <div className="flex-1 overflow-y-auto p-4 space-y-6 flex flex-col">
             
-            {/* Minimal DSA Progress Mockup */}
+            {/* Real DSA Progress */}
             <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-4">
               <div className="flex justify-between items-end mb-4">
                 <div>
                   <h4 className="text-xs text-gray-400 font-semibold mb-1">DSA Progress</h4>
-                  <p className="text-2xl font-black text-white">47 <span className="text-sm font-normal text-gray-500">of 454</span></p>
+                  <p className="text-2xl font-black text-white">{dsaStats.totalSolved} <span className="text-sm font-normal text-gray-500">of 454</span></p>
                 </div>
               </div>
               <div className="space-y-3">
                 {[
-                  { lbl: 'Easy', val: 32, tot: 133, col: 'bg-green-500' },
-                  { lbl: 'Medium', val: 12, tot: 184, col: 'bg-yellow-500' },
-                  { lbl: 'Hard', val: 3, tot: 137, col: 'bg-red-500' }
+                  { lbl: 'Easy', val: dsaStats.easySolved, tot: 133, col: 'bg-green-500' },
+                  { lbl: 'Medium', val: dsaStats.medSolved, tot: 184, col: 'bg-yellow-500' },
+                  { lbl: 'Hard', val: dsaStats.hardSolved, tot: 137, col: 'bg-red-500' }
                 ].map(x => (
                   <div key={x.lbl} className="flex items-center gap-3">
                     <span className="text-xs text-gray-400 w-12">{x.lbl}</span>
                     <div className="flex-1 h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                      <div className={`h-full ${x.col} rounded-full`} style={{ width: `${Math.round((x.val/x.tot)*100)}%` }} />
+                      <div className={`h-full ${x.col} rounded-full`} style={{ width: `${Math.round((x.val/Math.max(1, x.tot))*100)}%` }} />
                     </div>
                     <span className="text-xs text-gray-500 font-mono w-10 text-right">{x.val}/{x.tot}</span>
                   </div>

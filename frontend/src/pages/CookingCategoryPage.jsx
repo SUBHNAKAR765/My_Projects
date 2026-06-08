@@ -8,7 +8,7 @@ export default function CookingCategoryPage({ onNavigate }) {
       {/* Header */}
       <div className="flex items-center gap-4 mb-8">
         <button 
-          onClick={() => onNavigate('categories')}
+          onClick={() => onNavigate('daily')}
           className="flex items-center gap-2 px-3 py-1.5 border border-gray-800 rounded-lg hover:bg-white/5 transition-colors text-xs font-semibold"
         >
           <ChevronLeft size={14} className="text-[#e05a35]" />

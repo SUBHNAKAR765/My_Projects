@@ -37,24 +37,27 @@ function getSavedUser() {
 }
 
 function pageToPath(page) {
-  if (page === 'daily') return '/daily';
-  if (page === 'leaderboard') return '/leaderboard';
-  if (page === 'profile') return '/profile';
-  if (page === 'analytics') return '/analytics';
-  if (page === 'dsa') return '/dsa';
-  if (page === 'roadmap') return '/roadmap';
-  if (page === 'maths') return '/daily/maths';
-  if (page === 'maths_subtopics') return '/daily/maths/subtopics';
-  if (page === 'maths_problems') return '/daily/maths/problems';
-  if (page === 'maths_quiz') return '/daily/maths/quiz';
-  if (page === 'language') return '/daily/language';
-  if (page === 'language_list') return '/daily/language/list';
-  if (page === 'language_detail') return '/daily/language/detail';
-  if (page === 'fitness') return '/daily/fitness';
-  if (page === 'fitness_module') return '/daily/fitness/module';
-  if (page === 'cooking_list') return '/daily/cooking';
-  if (page === 'cooking_detail') return '/daily/cooking/detail';
-  return '/';
+  const map = {
+    dashboard: '/',
+    daily: '/daily',
+    leaderboard: '/leaderboard',
+    profile: '/profile',
+    analytics: '/analytics',
+    dsa: '/dsa',
+    roadmap: '/roadmap',
+    maths: '/daily/maths',
+    maths_subtopics: '/daily/maths/subtopics',
+    maths_problems: '/daily/maths/problems',
+    maths_quiz: '/daily/maths/quiz',
+    language: '/daily/language',
+    language_list: '/daily/language/list',
+    language_detail: '/daily/language/detail',
+    fitness: '/daily/fitness',
+    fitness_module: '/daily/fitness/module',
+    cooking_list: '/daily/cooking',
+    cooking_detail: '/daily/cooking/detail',
+  };
+  return map[page] ?? '/';
 }
 
 function pathToPage(pathname) {
@@ -63,7 +66,6 @@ function pathToPage(pathname) {
   if (pathname.startsWith('/analytics')) return 'analytics';
   if (pathname.startsWith('/dsa')) return 'dsa';
   if (pathname.startsWith('/roadmap')) return 'roadmap';
-  
   if (pathname.startsWith('/daily/language/detail')) return 'language_detail';
   if (pathname.startsWith('/daily/language/list')) return 'language_list';
   if (pathname.startsWith('/daily/language')) return 'language';
@@ -88,7 +90,7 @@ export default function App() {
   const navigatePage = useCallback((nextPage) => {
     const targetPath = pageToPath(nextPage);
     if (window.location.pathname !== targetPath) {
-      window.history.pushState(null, '', targetPath);
+      window.history.pushState({ page: nextPage }, '', targetPath);
     }
     setPage(nextPage);
   }, []);
@@ -98,10 +100,17 @@ export default function App() {
   }, [settings.reducedMotion]);
 
   useEffect(() => {
-    const onPopState = () => setPage(pathToPage(window.location.pathname));
+    // Set initial state
+    const currentPage = pathToPage(window.location.pathname);
+    window.history.replaceState({ page: currentPage }, '', window.location.pathname);
+
+    const onPopState = (e) => {
+      const restoredPage = e.state?.page || pathToPage(window.location.pathname);
+      setPage(restoredPage);
+    };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     if (!user) { setRecords([]); return; }

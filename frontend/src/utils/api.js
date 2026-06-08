@@ -1,4 +1,4 @@
-const BASE = 'http://localhost:8050/api'
+const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8050/api'
 const LOCAL_USERS_KEY = 'skillbite_users'
 const LOCAL_ANSWERS_KEY = 'skillbite_answers'
 
